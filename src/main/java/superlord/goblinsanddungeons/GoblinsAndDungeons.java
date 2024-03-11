@@ -101,6 +101,9 @@ public class GoblinsAndDungeons {
 		ModMessages.register();
 		EffectInit.brewingRecipes();
 		SpawnPlacements.register(EntityInit.OGRE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkAnyLightMonsterSpawnRules);
+        event.enqueueWork(() -> {
+        	StructureInit.init();
+        });
 	}
 
 	public void clientRegistries(final FMLClientSetupEvent event) {
