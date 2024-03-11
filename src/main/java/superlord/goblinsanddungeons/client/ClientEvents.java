@@ -14,8 +14,7 @@ import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.loading.FMLEnvironment;
-import net.minecraftforge.registries.RegisterEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import superlord.goblinsanddungeons.GoblinsAndDungeons;
 import superlord.goblinsanddungeons.client.model.BeholderModel;
 import superlord.goblinsanddungeons.client.model.GarchModel;
@@ -73,6 +72,13 @@ public class ClientEvents {
 	public static ModelLayerLocation GOB_KING = new ModelLayerLocation(new ResourceLocation(GoblinsAndDungeons.MOD_ID, "gob_king"), "gob_king");
 	public static ModelLayerLocation GOBLIN_CROWN = new ModelLayerLocation(new ResourceLocation(GoblinsAndDungeons.MOD_ID, "goblin_crown"), "goblin_crown");
 	public static ModelLayerLocation BEHOLDER = new ModelLayerLocation(new ResourceLocation(GoblinsAndDungeons.MOD_ID, "beholder"), "beholder");
+	
+	@SubscribeEvent
+	public static void fmlClientSetup(FMLClientSetupEvent event) {
+		RenderType cutoutRenderType = RenderType.cutout();
+		ItemBlockRenderTypes.setRenderLayer(BlockInit.SOUL_ASH_CAMPFIRE.get(), cutoutRenderType);
+		ItemBlockRenderTypes.setRenderLayer(BlockInit.SOUL_ASH_SOUL_CAMPFIRE.get(), cutoutRenderType);
+	}
 
 	@SubscribeEvent
 	public static void registerEntityRenders(EntityRenderersEvent.RegisterRenderers event) {
@@ -122,15 +128,4 @@ public class ClientEvents {
 		ItemColor eggColor = (stack, tintIndex) -> ((GoblinsAndDungeonsSpawnEggItem) stack.getItem()).getColor(tintIndex);
 		for (GoblinsAndDungeonsSpawnEggItem e : GoblinsAndDungeonsSpawnEggItem.UNADDED_EGGS) handler.register(eggColor, e);
 	}
-	
-
-	@SubscribeEvent
-	public static void registerBlocks(final RegisterEvent event) {
-		if (FMLEnvironment.dist == Dist.CLIENT) {
-			RenderType cutoutRenderType = RenderType.cutout();
-			ItemBlockRenderTypes.setRenderLayer(BlockInit.SOUL_ASH_CAMPFIRE.get(), cutoutRenderType);
-			ItemBlockRenderTypes.setRenderLayer(BlockInit.SOUL_ASH_SOUL_CAMPFIRE.get(), cutoutRenderType);
-		}
-	}
-
 }

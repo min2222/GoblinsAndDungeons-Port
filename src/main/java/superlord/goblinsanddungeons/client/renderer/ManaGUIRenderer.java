@@ -29,7 +29,7 @@ public class ManaGUIRenderer {
 	@OnlyIn(Dist.CLIENT)
 	@SubscribeEvent
 	public static void registerOverlays(RegisterGuiOverlaysEvent event) {
-		event.registerAbove(VanillaGuiOverlay.FOOD_LEVEL.id(), "Mana Level", (gui, mStack, partialTicks, screenWidth, screenHeight) -> {
+		event.registerAbove(VanillaGuiOverlay.FOOD_LEVEL.id(), "mana_level", (gui, mStack, partialTicks, screenWidth, screenHeight) -> {
 			boolean isMounted = gui.minecraft.player.getVehicle() instanceof LivingEntity;
 			if (!isMounted && !gui.minecraft.options.hideGui && gui.shouldDrawSurvivalElements()) {
 				gui.setupOverlayRenderState(true, false, GUI_ICONS);

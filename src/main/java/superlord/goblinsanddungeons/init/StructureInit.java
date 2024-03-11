@@ -23,7 +23,7 @@ import superlord.goblinsanddungeons.common.world.structures.SmallGoblinCampStruc
 @Mod.EventBusSubscriber(modid = GoblinsAndDungeons.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class StructureInit {
 	
-    public static final DeferredRegister<StructureType<?>> REG = DeferredRegister.create(Registry.STRUCTURE_TYPE_REGISTRY, GoblinsAndDungeons.MOD_ID);
+    public static final DeferredRegister<StructureType<?>> REGISTER = DeferredRegister.create(Registry.STRUCTURE_TYPE_REGISTRY, GoblinsAndDungeons.MOD_ID);
     
     public static final RegistryObject<StructureType<SmallGoblinCampStructure>> SMALL_GOBLIN_CAMP = registerStructure("small_goblin_camp", () -> () -> SmallGoblinCampStructure.CODEC);
     public static final RegistryObject<StructureType<MediumGoblinCampStructure>> MEDIUM_GOBLIN_CAMP = registerStructure("medium_goblin_camp", () -> () -> MediumGoblinCampStructure.CODEC);
@@ -31,7 +31,7 @@ public class StructureInit {
     public static final RegistryObject<StructureType<RuinedKeepStructure>> RUINED_KEEP = registerStructure("ruined_keep", () -> () -> RuinedKeepStructure.CODEC);
     
     private static <T extends Structure> RegistryObject<StructureType<T>> registerStructure(String name, Supplier<StructureType<T>> structure) {
-        return REG.register(name, structure);
+        return REGISTER.register(name, structure);
     }
 	public static StructurePieceType SMALL_GOBLIN_CAMP_PIECE;
 	public static StructurePieceType MEDIUM_GOBLIN_CAMP_PIECE;

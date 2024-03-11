@@ -42,10 +42,12 @@ import superlord.goblinsanddungeons.common.entity.HobGob;
 import superlord.goblinsanddungeons.common.entity.Mimic;
 import superlord.goblinsanddungeons.common.entity.Ogre;
 import superlord.goblinsanddungeons.config.GDConfigHolder;
+import superlord.goblinsanddungeons.init.BiomeModifierInit;
 import superlord.goblinsanddungeons.init.BlockInit;
 import superlord.goblinsanddungeons.init.EffectInit;
 import superlord.goblinsanddungeons.init.EntityInit;
 import superlord.goblinsanddungeons.init.ItemInit;
+import superlord.goblinsanddungeons.init.StructureInit;
 import superlord.goblinsanddungeons.init.TileEntityInit;
 import superlord.goblinsanddungeons.networking.ModMessages;
 
@@ -83,6 +85,8 @@ public class GoblinsAndDungeons {
 		EffectInit.EFFECTS.register(bus);
 		EffectInit.POTIONS.register(bus);
 		TileEntityInit.REGISTER.register(bus);
+		StructureInit.REGISTER.register(bus);
+		BiomeModifierInit.REGISTER.register(bus);
 		modLoadingContext.registerConfig(ModConfig.Type.CLIENT, GDConfigHolder.CLIENT_SPEC);
 		modLoadingContext.registerConfig(ModConfig.Type.SERVER, GDConfigHolder.SERVER_SPEC);
 		bus.addListener(this::registerClient);

@@ -1,4 +1,4 @@
-package superlord.goblinsanddungeons.init;
+package superlord.goblinsanddungeons.common.world;
 
 import com.mojang.serialization.Codec;
 
@@ -15,8 +15,8 @@ import net.minecraftforge.common.world.ModifiableBiomeInfo.BiomeInfo.Builder;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import superlord.goblinsanddungeons.GoblinsAndDungeons;
-import superlord.goblinsanddungeons.common.world.GoblinsAndDungeonsFeatures;
 import superlord.goblinsanddungeons.config.GoblinsDungeonsConfig;
+import superlord.goblinsanddungeons.init.EntityInit;
 
 public class GoblinsandDungeonsBiomeModifiers implements BiomeModifier {
 	
@@ -42,4 +42,8 @@ public class GoblinsandDungeonsBiomeModifiers implements BiomeModifier {
 	public Codec<? extends BiomeModifier> codec() {
 		return SERIALIZER.get();
 	}
+	
+    public static Codec<GoblinsandDungeonsBiomeModifiers> makeCodec() {
+        return Codec.unit(GoblinsandDungeonsBiomeModifiers::new);
+    }
 }
