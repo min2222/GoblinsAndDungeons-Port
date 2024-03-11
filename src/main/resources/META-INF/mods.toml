@@ -18,6 +18,6 @@ description='''Goblins & Dungeons is a mod about dungeons and mythical creatures
 [[dependencies.goblinsanddungeons]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.19.2)"
+    versionRange="[1.19.2,1.20)"
     ordering="NONE"
     side="BOTH"
