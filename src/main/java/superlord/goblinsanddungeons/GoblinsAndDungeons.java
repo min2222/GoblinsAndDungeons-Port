@@ -8,22 +8,14 @@ import org.apache.logging.log4j.Logger;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.MobSpawnSettings;
-import net.minecraft.world.level.levelgen.GenerationStep.Decoration;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
-import net.minecraftforge.event.world.BiomeLoadingEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -36,7 +28,6 @@ import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
 import net.minecraftforge.server.ServerLifecycleHooks;
 import superlord.goblinsanddungeons.client.ClientProxy;
-import superlord.goblinsanddungeons.client.renderer.ManaGUIRenderer;
 import superlord.goblinsanddungeons.common.CommonProxy;
 import superlord.goblinsanddungeons.common.compat.QuarkFlagRecipeCondition;
 import superlord.goblinsanddungeons.common.compat.RegistryHelper;
@@ -50,9 +41,7 @@ import superlord.goblinsanddungeons.common.entity.Goom;
 import superlord.goblinsanddungeons.common.entity.HobGob;
 import superlord.goblinsanddungeons.common.entity.Mimic;
 import superlord.goblinsanddungeons.common.entity.Ogre;
-import superlord.goblinsanddungeons.common.world.GoblinsAndDungeonsFeatures;
 import superlord.goblinsanddungeons.config.GDConfigHolder;
-import superlord.goblinsanddungeons.config.GoblinsDungeonsConfig;
 import superlord.goblinsanddungeons.init.BlockInit;
 import superlord.goblinsanddungeons.init.EffectInit;
 import superlord.goblinsanddungeons.init.EntityInit;
@@ -76,8 +65,7 @@ public class GoblinsAndDungeons {
 			.networkProtocolVersion(() -> PROTOCOL_VERSION)
 			.simpleChannel();
 	public static GoblinsAndDungeons instance;
-	@SuppressWarnings("deprecation")
-	public static CommonProxy PROXY = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
+	public static CommonProxy PROXY = DistExecutor.safeRunForDist(() -> ClientProxy::new, () -> CommonProxy::new);
 
 	public GoblinsAndDungeons() {
 		instance = this;
@@ -97,22 +85,14 @@ public class GoblinsAndDungeons {
 		TileEntityInit.REGISTER.register(bus);
 		modLoadingContext.registerConfig(ModConfig.Type.CLIENT, GDConfigHolder.CLIENT_SPEC);
 		modLoadingContext.registerConfig(ModConfig.Type.SERVER, GDConfigHolder.SERVER_SPEC);
-		IEventBus forgeBus = MinecraftForge.EVENT_BUS;
 		bus.addListener(this::registerClient);
-		forgeBus.addListener(EventPriority.HIGH, this::biomeModification);
-	}
-
-	@SubscribeEvent(priority = EventPriority.LOWEST)
-	public static void registerBiomes(BiomeLoadingEvent event) {
-		if (event.getCategory() == Biome.BiomeCategory.PLAINS || event.getCategory() == Biome.BiomeCategory.SWAMP || event.getCategory() == Biome.BiomeCategory.TAIGA || event.getCategory() == Biome.BiomeCategory.FOREST) {
-			event.getSpawns().getSpawner(MobCategory.CREATURE).add(new MobSpawnSettings.SpawnerData(EntityInit.OGRE.get(), GoblinsDungeonsConfig.ogreSpawnWeight, 1, 1));
-		}
 	}
 
 	public static ResourceLocation location(String name) {
 		return new ResourceLocation(MOD_ID, name);
 	}
 
+	@SuppressWarnings("deprecation")
 	public void setup(final FMLCommonSetupEvent event) {
 		ModMessages.register();
 		EffectInit.brewingRecipes();
@@ -120,7 +100,6 @@ public class GoblinsAndDungeons {
 	}
 
 	public void clientRegistries(final FMLClientSetupEvent event) {
-		ManaGUIRenderer.registerOverlays();
 	}
 
 	private void registerEntityAttributes(EntityAttributeCreationEvent event) {
@@ -135,12 +114,6 @@ public class GoblinsAndDungeons {
 		event.put(EntityInit.MIMIC.get(), Mimic.createAttributes().build());
 		event.put(EntityInit.BEHOLDER.get(), Beholder.createAttributes().build());
 	}
-
-	public void biomeModification(final BiomeLoadingEvent event) {
-		event.getGeneration().getFeatures(Decoration.UNDERGROUND_ORES).add(GoblinsAndDungeonsFeatures.ORE_SCORIA_LOWER);
-		event.getGeneration().getFeatures(Decoration.UNDERGROUND_ORES).add(GoblinsAndDungeonsFeatures.ORE_SCORIA_UPPER);
-	}
-
 
 	public final static CreativeModeTab GROUP = new CreativeModeTab("goblinsanddungeons_item_group") {
 		@Override

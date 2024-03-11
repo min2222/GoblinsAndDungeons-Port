@@ -13,7 +13,6 @@ import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -50,9 +49,9 @@ public class HealthRingItem extends ArmorItem {
     public void appendHoverText(ItemStack p_77624_1_, @Nullable Level p_77624_2_, List<Component> p_77624_3_, TooltipFlag p_77624_4_) {
         super.appendHoverText(p_77624_1_, p_77624_2_, p_77624_3_, p_77624_4_);
         if (InputConstants.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), 340) || InputConstants.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), 344)) {
-        	p_77624_3_.add(new TranslatableComponent("health_ring").withStyle(ChatFormatting.GRAY));
+        	p_77624_3_.add(Component.translatable("health_ring").withStyle(ChatFormatting.GRAY));
 		} else {
-			p_77624_3_.add(new TranslatableComponent("shift").withStyle(ChatFormatting.GRAY));
+			p_77624_3_.add(Component.translatable("shift").withStyle(ChatFormatting.GRAY));
 		}
 	}
 	

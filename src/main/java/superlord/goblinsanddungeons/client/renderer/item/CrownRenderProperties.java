@@ -5,12 +5,12 @@ import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.client.IItemRenderProperties;
+import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import superlord.goblinsanddungeons.client.ClientEvents;
 import superlord.goblinsanddungeons.client.model.armor.GoblinCrownModel;
 import superlord.goblinsanddungeons.init.ItemInit;
 
-public class CrownRenderProperties implements IItemRenderProperties {
+public class CrownRenderProperties implements IClientItemExtensions {
 	
 	private static boolean init;
 
@@ -30,5 +30,4 @@ public class CrownRenderProperties implements IItemRenderProperties {
         }
     	return _default;
     }
-    
 }

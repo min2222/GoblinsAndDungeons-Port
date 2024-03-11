@@ -2,10 +2,11 @@ package superlord.goblinsanddungeons.init;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegisterEvent;
 import superlord.goblinsanddungeons.GoblinsAndDungeons;
 
 @Mod.EventBusSubscriber(modid = GoblinsAndDungeons.MOD_ID, bus = Bus.MOD)
@@ -64,53 +65,55 @@ public class SoundInit {
 	public static final SoundEvent URN_STEP;
 	
 	@SubscribeEvent
-	public static void registerSounds(final RegistryEvent.Register<SoundEvent> evt) {
-		evt.getRegistry().register(OGRE_IDLE);
-		evt.getRegistry().register(OGRE_HURT);
-		evt.getRegistry().register(OGRE_DEATH);
-		evt.getRegistry().register(OGRE_ROAR);
-		evt.getRegistry().register(GARCH_IDLE);
-		evt.getRegistry().register(GARCH_HURT);
-		evt.getRegistry().register(GARCH_DEATH);
-		evt.getRegistry().register(GOOM_IDLE);
-		evt.getRegistry().register(GOOM_HURT);
-		evt.getRegistry().register(GOOM_DEATH);
-		evt.getRegistry().register(GOOM_WARNING);
-		evt.getRegistry().register(HOBGOB_IDLE);
-		evt.getRegistry().register(HOBGOB_HURT);
-		evt.getRegistry().register(HOBGOB_DEATH);
-		evt.getRegistry().register(GOB_IDLE);
-		evt.getRegistry().register(GOB_HURT);
-		evt.getRegistry().register(GOB_DEATH);
-		evt.getRegistry().register(MIMIC_IDLE);
-		evt.getRegistry().register(MIMIC_HURT);
-		evt.getRegistry().register(MIMIC_DEATH);
-		evt.getRegistry().register(GOBBER_IDLE);
-		evt.getRegistry().register(GOBBER_HURT);
-		evt.getRegistry().register(GOBBER_DEATH);
-		evt.getRegistry().register(GOBBER_SNORING);
-		evt.getRegistry().register(GOBLO_IDLE);
-		evt.getRegistry().register(GOBLO_HURT);
-		evt.getRegistry().register(GOBLO_DEATH);
-		evt.getRegistry().register(GOBLO_SNORING);
-		evt.getRegistry().register(GOBLO_EATING);
-		evt.getRegistry().register(GOBLIN_KING_IDLE);
-		evt.getRegistry().register(GOBLIN_KING_LAUGH);
-		evt.getRegistry().register(GOBLIN_KING_HURT);
-		evt.getRegistry().register(GOBLIN_KING_DEATH);
-		evt.getRegistry().register(SPELL_CASTING);
-		evt.getRegistry().register(SOUL_BULLET_LAUNCH);
-		evt.getRegistry().register(SOUL_BULLET_COLLISION);
-		evt.getRegistry().register(URN_PLACE);
-		evt.getRegistry().register(URN_BREAK);
-		evt.getRegistry().register(URN_FALL);
-		evt.getRegistry().register(URN_HIT);
-		evt.getRegistry().register(URN_STEP);
+	public static void registerSounds(final RegisterEvent evt) {
+		evt.register(ForgeRegistries.Keys.SOUND_EVENTS, helper -> {
+			helper.register(OGRE_IDLE.getLocation(), OGRE_IDLE);
+			helper.register(OGRE_HURT.getLocation(), OGRE_HURT);
+			helper.register(OGRE_DEATH.getLocation(), OGRE_DEATH);
+			helper.register(OGRE_ROAR.getLocation(), OGRE_ROAR);
+			helper.register(GARCH_IDLE.getLocation(), GARCH_IDLE);
+			helper.register(GARCH_HURT.getLocation(), GARCH_HURT);
+			helper.register(GARCH_DEATH.getLocation(), GARCH_DEATH);
+			helper.register(GOOM_IDLE.getLocation(), GOOM_IDLE);
+			helper.register(GOOM_HURT.getLocation(), GOOM_HURT);
+			helper.register(GOOM_DEATH.getLocation(), GOOM_DEATH);
+			helper.register(GOOM_WARNING.getLocation(), GOOM_WARNING);
+			helper.register(HOBGOB_IDLE.getLocation(), HOBGOB_IDLE);
+			helper.register(HOBGOB_HURT.getLocation(), HOBGOB_HURT);
+			helper.register(HOBGOB_DEATH.getLocation(), HOBGOB_DEATH);
+			helper.register(GOB_IDLE.getLocation(), GOB_IDLE);
+			helper.register(GOB_HURT.getLocation(), GOB_HURT);
+			helper.register(GOB_DEATH.getLocation(), GOB_DEATH);
+			helper.register(MIMIC_IDLE.getLocation(), MIMIC_IDLE);
+			helper.register(MIMIC_HURT.getLocation(), MIMIC_HURT);
+			helper.register(MIMIC_DEATH.getLocation(), MIMIC_DEATH);
+			helper.register(GOBBER_IDLE.getLocation(), GOBBER_IDLE);
+			helper.register(GOBBER_HURT.getLocation(), GOBBER_HURT);
+			helper.register(GOBBER_DEATH.getLocation(), GOBBER_DEATH);
+			helper.register(GOBBER_SNORING.getLocation(), GOBBER_SNORING);
+			helper.register(GOBLO_IDLE.getLocation(), GOBLO_IDLE);
+			helper.register(GOBLO_HURT.getLocation(), GOBLO_HURT);
+			helper.register(GOBLO_DEATH.getLocation(), GOBLO_DEATH);
+			helper.register(GOBLO_SNORING.getLocation(), GOBLO_SNORING);
+			helper.register(GOBLO_EATING.getLocation(), GOBLO_EATING);
+			helper.register(GOBLIN_KING_IDLE.getLocation(), GOBLIN_KING_IDLE);
+			helper.register(GOBLIN_KING_LAUGH.getLocation(), GOBLIN_KING_LAUGH);
+			helper.register(GOBLIN_KING_HURT.getLocation(), GOBLIN_KING_HURT);
+			helper.register(GOBLIN_KING_DEATH.getLocation(), GOBLIN_KING_DEATH);
+			helper.register(SPELL_CASTING.getLocation(), SPELL_CASTING);
+			helper.register(SOUL_BULLET_LAUNCH.getLocation(), SOUL_BULLET_LAUNCH);
+			helper.register(SOUL_BULLET_COLLISION.getLocation(), SOUL_BULLET_COLLISION);
+			helper.register(URN_PLACE.getLocation(), URN_PLACE);
+			helper.register(URN_BREAK.getLocation(), URN_BREAK);
+			helper.register(URN_FALL.getLocation(), URN_FALL);
+			helper.register(URN_HIT.getLocation(), URN_HIT);
+			helper.register(URN_STEP.getLocation(), URN_STEP);	
+		});
 	}
 	
 	private static SoundEvent createEvent(final String soundName) {
 		final ResourceLocation soundId = new ResourceLocation(GoblinsAndDungeons.MOD_ID, soundName);
-		return new SoundEvent(soundId).setRegistryName(soundId);
+		return new SoundEvent(soundId);
 	}
 	
 	static {

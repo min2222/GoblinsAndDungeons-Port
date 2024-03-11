@@ -3,7 +3,7 @@ package superlord.goblinsanddungeons.common.entity;
 import javax.annotation.Nullable;
 
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.game.ClientboundAddMobPacket;
+import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -157,7 +157,7 @@ public class Mimic extends Goblin {
 
 	}
 
-	public void recreateFromPacket(ClientboundAddMobPacket p_149798_) {
+	public void recreateFromPacket(ClientboundAddEntityPacket p_149798_) {
 		super.recreateFromPacket(p_149798_);
 		this.yBodyRot = 0.0F;
 		this.yBodyRotO = 0.0F;

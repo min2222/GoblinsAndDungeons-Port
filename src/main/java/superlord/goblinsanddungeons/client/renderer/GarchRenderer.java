@@ -16,7 +16,7 @@ public class GarchRenderer extends MobRenderer<Garch, GarchModel<Garch>> {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public GarchRenderer(EntityRendererProvider.Context renderManagerIn) {
 		super(renderManagerIn, new GarchModel(renderManagerIn.bakeLayer(ClientEvents.GARCH)), 0.375F);
-		this.addLayer(new ItemInHandLayer(this));
+		this.addLayer(new ItemInHandLayer(this, renderManagerIn.getItemInHandRenderer()));
 	}
 
 	@Override

@@ -9,7 +9,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.protocol.game.ClientboundAddMobPacket;
+import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.protocol.game.ClientboundSetEntityMotionPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -642,7 +642,7 @@ public class Beholder extends Monster implements FlyingAnimal {
 		return this.subEntities;
 	}
 
-	public void recreateFromPacket(ClientboundAddMobPacket p_149572_) {
+	public void recreateFromPacket(ClientboundAddEntityPacket p_149572_) {
 		super.recreateFromPacket(p_149572_);
 		BeholderPart[] beholderPart = this.getSubEntities();
 

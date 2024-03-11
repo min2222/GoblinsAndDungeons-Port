@@ -3,7 +3,7 @@ package superlord.goblinsanddungeons.init;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.ParticleEngine;
 import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
+import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import superlord.goblinsanddungeons.GoblinsAndDungeons;
@@ -29,7 +29,7 @@ public class ParticleInit {
 	
 	@SuppressWarnings("resource")
 	@SubscribeEvent
-	public static void registerFactories(ParticleFactoryRegisterEvent e) {
+	public static void registerFactories(RegisterParticleProvidersEvent e) {
 		ParticleEngine particles = Minecraft.getInstance().particleEngine;
 
 		particles.register(GOB_SOUL_BULLET, GoblinSoulBulletParticle.Provider::new);

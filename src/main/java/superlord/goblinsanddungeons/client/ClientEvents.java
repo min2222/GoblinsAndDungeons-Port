@@ -8,15 +8,14 @@ import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.block.Block;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.loading.FMLEnvironment;
+import net.minecraftforge.registries.RegisterEvent;
 import superlord.goblinsanddungeons.GoblinsAndDungeons;
 import superlord.goblinsanddungeons.client.model.BeholderModel;
 import superlord.goblinsanddungeons.client.model.GarchModel;
@@ -118,7 +117,7 @@ public class ClientEvents {
 
 	@SubscribeEvent
 	@OnlyIn(Dist.CLIENT)
-	public static void itemColors(ColorHandlerEvent.Item event) {
+	public static void itemColors(RegisterColorHandlersEvent.Item event) {
 		ItemColors handler = event.getItemColors();
 		ItemColor eggColor = (stack, tintIndex) -> ((GoblinsAndDungeonsSpawnEggItem) stack.getItem()).getColor(tintIndex);
 		for (GoblinsAndDungeonsSpawnEggItem e : GoblinsAndDungeonsSpawnEggItem.UNADDED_EGGS) handler.register(eggColor, e);
@@ -126,7 +125,7 @@ public class ClientEvents {
 	
 
 	@SubscribeEvent
-	public static void registerBlocks(final RegistryEvent.Register<Block> event) {
+	public static void registerBlocks(final RegisterEvent event) {
 		if (FMLEnvironment.dist == Dist.CLIENT) {
 			RenderType cutoutRenderType = RenderType.cutout();
 			ItemBlockRenderTypes.setRenderLayer(BlockInit.SOUL_ASH_CAMPFIRE.get(), cutoutRenderType);

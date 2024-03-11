@@ -1,11 +1,10 @@
 package superlord.goblinsanddungeons.common.util;
 
-import java.util.Random;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.monster.Monster;
@@ -16,6 +15,7 @@ import net.minecraft.world.level.NaturalSpawner;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraftforge.common.Tags;
 import superlord.goblinsanddungeons.common.entity.Gob;
 import superlord.goblinsanddungeons.init.EntityInit;
 
@@ -30,7 +30,7 @@ public class GoblinPatrolSpawner implements CustomSpawner {
 		} else if (!world.getGameRules().getBoolean(GameRules.RULE_DO_PATROL_SPAWNING)) {
 			return 0;
 		} else {
-			Random random = world.random;
+			RandomSource random = world.random;
 			--this.field_222698_b;
 			if (this.field_222698_b > 0) {
 				return 0;
@@ -58,8 +58,7 @@ public class GoblinPatrolSpawner implements CustomSpawner {
 									return 0;
 								} else {
 									Holder<Biome> biome = world.getBiome(blockpos$mutable);
-									Biome.BiomeCategory biome$category = Biome.getBiomeCategory(biome);
-									if (biome$category == Biome.BiomeCategory.MUSHROOM) {
+									if (biome.is(Tags.Biomes.IS_MUSHROOM)) {
 										return 0;
 									} else {
 										int i1 = 0;
@@ -93,7 +92,7 @@ public class GoblinPatrolSpawner implements CustomSpawner {
 		}
 	}
 
-	private boolean spawnGoblins(ServerLevel worldIn, BlockPos pos, Random random, boolean p_222695_4_) {
+	private boolean spawnGoblins(ServerLevel worldIn, BlockPos pos, RandomSource random, boolean p_222695_4_) {
 		BlockState blockstate = worldIn.getBlockState(pos);
 		if (!NaturalSpawner.isValidEmptySpawnBlock(worldIn, pos, blockstate, blockstate.getFluidState(), EntityInit.GOB.get())) {
 			return false;

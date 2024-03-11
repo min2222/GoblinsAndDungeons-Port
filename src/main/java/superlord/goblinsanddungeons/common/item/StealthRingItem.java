@@ -9,7 +9,6 @@ import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ArmorItem;
@@ -34,16 +33,16 @@ public class StealthRingItem extends ArmorItem {
         super.appendHoverText(p_77624_1_, p_77624_2_, p_77624_3_, p_77624_4_);
         if (InputConstants.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), 340) || InputConstants.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), 344)) {
 			if (p_77624_1_.getItem() == ItemInit.RING_OF_STEALTH.get()) {
-				p_77624_3_.add(new TranslatableComponent("stealth_ring").withStyle(ChatFormatting.GRAY));
+				p_77624_3_.add(Component.translatable("stealth_ring").withStyle(ChatFormatting.GRAY));
 			}	
 			if (p_77624_1_.getItem() == ItemInit.RING_OF_EXPERIENCE.get()) {
-				p_77624_3_.add(new TranslatableComponent("experience_ring").withStyle(ChatFormatting.GRAY));
+				p_77624_3_.add(Component.translatable("experience_ring").withStyle(ChatFormatting.GRAY));
 			}
 			if (p_77624_1_.getItem() == ItemInit.RING_OF_GLORY.get()) {
-				p_77624_3_.add(new TranslatableComponent("glory_ring").withStyle(ChatFormatting.GRAY));
+				p_77624_3_.add(Component.translatable("glory_ring").withStyle(ChatFormatting.GRAY));
 			}
 		} else {
-			p_77624_3_.add(new TranslatableComponent("shift").withStyle(ChatFormatting.GRAY));
+			p_77624_3_.add(Component.translatable("shift").withStyle(ChatFormatting.GRAY));
 		}
 	}
 

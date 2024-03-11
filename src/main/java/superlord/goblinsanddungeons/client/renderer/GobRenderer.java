@@ -17,7 +17,7 @@ public class GobRenderer extends MobRenderer<Gob, EntityModel<Gob>> {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public GobRenderer(EntityRendererProvider.Context renderManagerIn) {
 		super(renderManagerIn, new GobModel(renderManagerIn.bakeLayer(ClientEvents.GOB)), 0.375F);
-		this.addLayer(new ItemInHandLayer(this));
+		this.addLayer(new ItemInHandLayer(this, renderManagerIn.getItemInHandRenderer()));
 	}
 
 	@Override

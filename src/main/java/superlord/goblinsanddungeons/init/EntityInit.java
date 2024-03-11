@@ -28,7 +28,7 @@ import superlord.goblinsanddungeons.common.entity.WeaknessOrb;
 
 public class EntityInit {
 	
-	public static final DeferredRegister<EntityType<?>> REGISTER = DeferredRegister.create(ForgeRegistries.ENTITIES, GoblinsAndDungeons.MOD_ID);
+	public static final DeferredRegister<EntityType<?>> REGISTER = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, GoblinsAndDungeons.MOD_ID);
 
 	public static final RegistryObject<EntityType<Gob>> GOB = REGISTER.register("gob", () -> EntityType.Builder.<Gob>of(Gob::new, MobCategory.MONSTER).sized(0.375F, 1.0F).build(new ResourceLocation(GoblinsAndDungeons.MOD_ID, "gob").toString()));
 	public static final RegistryObject<EntityType<HobGob>> HOBGOB = REGISTER.register("hobgob", () -> EntityType.Builder.<HobGob>of(HobGob::new, MobCategory.MONSTER).sized(1.25F, 2.0F).build(new ResourceLocation(GoblinsAndDungeons.MOD_ID, "hobgob").toString()));

@@ -16,7 +16,7 @@ public class GobKingRenderer extends MobRenderer<GobKing, GoblinKingModel<GobKin
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public GobKingRenderer(EntityRendererProvider.Context renderManagerIn) {
 		super(renderManagerIn, new GoblinKingModel(renderManagerIn.bakeLayer(ClientEvents.GOB_KING)), 0.375F);
-		this.addLayer(new ItemInHandLayer(this));
+		this.addLayer(new ItemInHandLayer(this, renderManagerIn.getItemInHandRenderer()));
 	}
 
 	@Override

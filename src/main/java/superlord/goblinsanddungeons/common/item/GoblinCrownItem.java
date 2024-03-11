@@ -9,7 +9,6 @@ import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -26,6 +25,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import superlord.goblinsanddungeons.GoblinsAndDungeons;
 import superlord.goblinsanddungeons.common.entity.Goblin;
 
@@ -36,9 +36,9 @@ public class GoblinCrownItem extends ArmorItem {
 	}
 	
 	@Override
-    public void initializeClient(java.util.function.Consumer<net.minecraftforge.client.IItemRenderProperties> consumer)
+    public void initializeClient(java.util.function.Consumer<IClientItemExtensions> consumer)
     {
-        consumer.accept((net.minecraftforge.client.IItemRenderProperties) GoblinsAndDungeons.PROXY.getArmorRenderProperties());
+        consumer.accept((IClientItemExtensions) GoblinsAndDungeons.PROXY.getArmorRenderProperties());
     }
 
 	@Override
@@ -64,9 +64,9 @@ public class GoblinCrownItem extends ArmorItem {
     public void appendHoverText(ItemStack p_77624_1_, @Nullable Level p_77624_2_, List<Component> p_77624_3_, TooltipFlag p_77624_4_) {
         super.appendHoverText(p_77624_1_, p_77624_2_, p_77624_3_, p_77624_4_);
         if (InputConstants.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), 340) || InputConstants.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), 344)) {
-            p_77624_3_.add(new TranslatableComponent("goblin_crown").withStyle(ChatFormatting.GRAY));
+			p_77624_3_.add(Component.translatable("goblin_crown").withStyle(ChatFormatting.GRAY));
         } else {
-            p_77624_3_.add(new TranslatableComponent("shift").withStyle(ChatFormatting.GRAY));
+            p_77624_3_.add(Component.translatable("shift").withStyle(ChatFormatting.GRAY));
         }
 	}
 

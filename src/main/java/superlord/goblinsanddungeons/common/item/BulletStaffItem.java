@@ -7,7 +7,6 @@ import javax.annotation.Nullable;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
@@ -58,13 +57,13 @@ public class BulletStaffItem extends Item {
 				if (player.isCreative() || spells.doesKnowSoulJump()) {
 					ItemStack newStack = new ItemStack(ItemInit.STAFF_JUMP.get());
 					int damage = this.getDamage(player.getItemInHand(hand));
-					player.displayClientMessage(new TranslatableComponent("item.goblinsanddungeons.current_spell_soul_jump"), true);
+					player.displayClientMessage(Component.translatable("item.goblinsanddungeons.current_spell_soul_jump"), true);
 					player.setItemInHand(hand, newStack);
 					newStack.setDamageValue(damage);
 				} else {
 					ItemStack newStack = new ItemStack(ItemInit.STAFF_AMETHYST.get());
 					int damage = this.getDamage(player.getItemInHand(hand));
-					player.displayClientMessage(new TranslatableComponent("item.goblinsanddungeons.current_spell_no_spell"), true);
+					player.displayClientMessage(Component.translatable("item.goblinsanddungeons.current_spell_no_spell"), true);
 					player.setItemInHand(hand, newStack);
 					newStack.setDamageValue(damage);
 				}
@@ -77,8 +76,8 @@ public class BulletStaffItem extends Item {
 	public void appendHoverText(ItemStack p_77624_1_, @Nullable Level p_77624_2_, List<Component> p_77624_3_, TooltipFlag p_77624_4_) {
 		super.appendHoverText(p_77624_1_, p_77624_2_, p_77624_3_, p_77624_4_);
 		if (GoblinsDungeonsConfig.magicalWorld) {
-			p_77624_3_.add(new TranslatableComponent("active_spell").withStyle(ChatFormatting.GRAY));
-			p_77624_3_.add(new TranslatableComponent("soul_bullet").withStyle(ChatFormatting.BLUE));
+			p_77624_3_.add(Component.translatable("active_spell").withStyle(ChatFormatting.GRAY));
+			p_77624_3_.add(Component.translatable("soul_bullet").withStyle(ChatFormatting.BLUE));
 		}
 	}
 

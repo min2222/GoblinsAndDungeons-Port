@@ -6,7 +6,6 @@ import javax.annotation.Nullable;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
@@ -30,19 +29,19 @@ public class StaffItem extends Item {
 			if (player.getAbilities().instabuild && player.isShiftKeyDown()) {
 				ItemStack newStack = new ItemStack(ItemInit.STAFF_BULLET.get());
 				int damage = this.getDamage(player.getItemInHand(hand));
-				player.displayClientMessage(new TranslatableComponent("item.goblinsanddungeons.current_spell_soul_bullet"), true);
+				player.displayClientMessage(Component.translatable("item.goblinsanddungeons.current_spell_soul_bullet"), true);
 				player.setItemInHand(hand, newStack);
 				newStack.setDamageValue(damage);
 			} else if (player.isShiftKeyDown() && spells.doesKnowSoulBullet()) {
 				ItemStack newStack = new ItemStack(ItemInit.STAFF_BULLET.get());
 				int damage = this.getDamage(player.getItemInHand(hand));
-				player.displayClientMessage(new TranslatableComponent("item.goblinsanddungeons.current_spell_soul_bullet"), true);
+				player.displayClientMessage(Component.translatable("item.goblinsanddungeons.current_spell_soul_bullet"), true);
 				player.setItemInHand(hand, newStack);
 				newStack.setDamageValue(damage);
 			} else if (player.isShiftKeyDown() && spells.doesKnowSoulJump() && !spells.doesKnowSoulBullet()) {
 				ItemStack newStack = new ItemStack(ItemInit.STAFF_JUMP.get());
 				int damage = this.getDamage(player.getItemInHand(hand));
-				player.displayClientMessage(new TranslatableComponent("item.goblinsanddungeons.current_spell_soul_jump"), true);
+				player.displayClientMessage(Component.translatable("item.goblinsanddungeons.current_spell_soul_jump"), true);
 				player.setItemInHand(hand, newStack);
 				newStack.setDamageValue(damage);
 			}
@@ -54,8 +53,8 @@ public class StaffItem extends Item {
 	public void appendHoverText(ItemStack p_77624_1_, @Nullable Level p_77624_2_, List<Component> p_77624_3_, TooltipFlag p_77624_4_) {
 		super.appendHoverText(p_77624_1_, p_77624_2_, p_77624_3_, p_77624_4_);
 		if (GoblinsDungeonsConfig.magicalWorld) {
-			p_77624_3_.add(new TranslatableComponent("active_spell").withStyle(ChatFormatting.GRAY));
-			p_77624_3_.add(new TranslatableComponent("no_spell").withStyle(ChatFormatting.GRAY));
+			p_77624_3_.add(Component.translatable("active_spell").withStyle(ChatFormatting.GRAY));
+			p_77624_3_.add(Component.translatable("no_spell").withStyle(ChatFormatting.GRAY));
 		}
 	}
 

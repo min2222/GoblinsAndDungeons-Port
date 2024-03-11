@@ -10,6 +10,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.Clearable;
 import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
@@ -92,7 +93,7 @@ public class SoulAshCampfireTileEntity extends BlockEntity implements Clearable 
 
 	@SuppressWarnings("unused")
 	public static void particleTick(Level p_155319_, BlockPos p_155320_, BlockState p_155321_, SoulAshCampfireTileEntity p_155322_) {
-		Random random = p_155319_.random;
+		RandomSource random = p_155319_.random;
 		if (random.nextFloat() < 0.11F) {
 			for(int i = 0; i < random.nextInt(2) + 2; ++i) {
 				SoulAshCampfireBlock.makeParticles(p_155319_, p_155320_, p_155321_.getValue(SoulAshCampfireBlock.SIGNAL_FIRE), false);

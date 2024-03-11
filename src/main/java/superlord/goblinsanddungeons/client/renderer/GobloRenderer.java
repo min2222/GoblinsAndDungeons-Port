@@ -22,7 +22,7 @@ public class GobloRenderer extends MobRenderer<Goblo, EntityModel<Goblo>> {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public GobloRenderer(EntityRendererProvider.Context renderManager) {
 		super(renderManager, new GobloModel(renderManager.bakeLayer(ClientEvents.GOBLO)), 0.375F);
-		this.addLayer(new ItemInHandLayer(this));
+		this.addLayer(new ItemInHandLayer(this, renderManager.getItemInHandRenderer()));
 		GOBLO = new GobloModel(renderManager.bakeLayer(ClientEvents.GOBLO));
 		SLEEPING_GOBLO = new SleepingGobloModel(renderManager.bakeLayer(ClientEvents.SLEEPING_GOBLO));
 	}

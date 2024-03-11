@@ -12,27 +12,31 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.gui.ForgeIngameGui;
-import net.minecraftforge.client.gui.OverlayRegistry;
+import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
+import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 import superlord.goblinsanddungeons.GoblinsAndDungeons;
 import superlord.goblinsanddungeons.client.mana.ClientManaData;
 import superlord.goblinsanddungeons.config.GoblinsDungeonsConfig;
 
 @OnlyIn(Dist.CLIENT)
+@Mod.EventBusSubscriber(modid = GoblinsAndDungeons.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ManaGUIRenderer {
 
 	public static final ResourceLocation GUI_ICONS = new ResourceLocation(GoblinsAndDungeons.MOD_ID, "textures/gui/icons.png");
 
 	@OnlyIn(Dist.CLIENT)
-	public static void registerOverlays() {
-		OverlayRegistry.registerOverlayAbove(ForgeIngameGui.FOOD_LEVEL_ELEMENT, "Mana Level", (gui, mStack, partialTicks, screenWidth, screenHeight) -> {
+	@SubscribeEvent
+	public static void registerOverlays(RegisterGuiOverlaysEvent event) {
+		event.registerAbove(VanillaGuiOverlay.FOOD_LEVEL.id(), "Mana Level", (gui, mStack, partialTicks, screenWidth, screenHeight) -> {
 			boolean isMounted = gui.minecraft.player.getVehicle() instanceof LivingEntity;
 			if (!isMounted && !gui.minecraft.options.hideGui && gui.shouldDrawSurvivalElements()) {
 				gui.setupOverlayRenderState(true, false, GUI_ICONS);
 				int left = screenWidth / 2 + 91;
-				int top = screenHeight - gui.right_height;
+				int top = screenHeight - gui.rightHeight;
 				renderMana(gui, mStack, new MutableInt(), left, top, true);
-				gui.right_height += 10;
+				gui.rightHeight += 10;
 			}
 		});
 	}

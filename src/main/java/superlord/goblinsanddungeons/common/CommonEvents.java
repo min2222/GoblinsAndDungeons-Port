@@ -1,7 +1,6 @@
 package superlord.goblinsanddungeons.common;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
@@ -30,10 +29,10 @@ import net.minecraft.world.level.storage.loot.entries.LootTableReference;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.LootTableLoadEvent;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
@@ -57,7 +56,7 @@ public class CommonEvents {
 	public static boolean knowsSoulBullet;
 
 	@SubscribeEvent
-	public static void onEntityJoinWorld(EntityJoinWorldEvent event) {
+	public static void onEntityJoinWorld(EntityJoinLevelEvent event) {
 		if (event.getEntity() instanceof AbstractIllager || event.getEntity() instanceof AbstractGolem) {
 			((Mob) event.getEntity()).targetSelector.addGoal(0, new NearestAttackableTargetGoal<>((Mob) event.getEntity(), Goblin.class, true));
 		}
@@ -100,7 +99,7 @@ public class CommonEvents {
 	public static void convertCampfire(BlockEvent.EntityPlaceEvent event) {
 		if (GoblinsDungeonsConfig.magicalWorld) {
 			BlockPos pos = event.getPos();
-			LevelAccessor world = event.getWorld();
+			LevelAccessor world = event.getLevel();
 			Block block = event.getPlacedBlock().getBlock();
 			if (block == Blocks.SOUL_SAND && world.getBlockState(pos.below()).getBlock() == Blocks.CAMPFIRE) {
 				world.setBlock(pos.below(), BlockInit.SOUL_ASH_CAMPFIRE.get().defaultBlockState(), 0);
@@ -121,7 +120,7 @@ public class CommonEvents {
 	@SubscribeEvent
 	public static void convertCampfireBack(BlockEvent.BreakEvent event) {
 		BlockPos pos = event.getPos();
-		LevelAccessor world = event.getWorld();
+		LevelAccessor world = event.getLevel();
 		Block block = world.getBlockState(pos).getBlock();
 		if ((block == Blocks.SOUL_SAND || block == BlockInit.ASHED_SOUL_SAND.get()) && world.getBlockState(pos.below()).getBlock() == BlockInit.SOUL_ASH_CAMPFIRE.get()) {
 			world.setBlock(pos.below(), Blocks.CAMPFIRE.defaultBlockState(), 0);
@@ -232,8 +231,8 @@ public class CommonEvents {
 	}
 	
 	@SubscribeEvent
-	public static void onPlayerJoinWorld(EntityJoinWorldEvent event) {
-		if (!event.getWorld().isClientSide()) {
+	public static void onPlayerJoinWorld(EntityJoinLevelEvent event) {
+		if (!event.getLevel().isClientSide()) {
 			if (event.getEntity() instanceof ServerPlayer player) {
 				player.getCapability(PlayerManaProvider.PLAYER_MANA).ifPresent(mana -> {
 					ModMessages.sendToPlayer(new ManaDataSyncS2CPacket(mana.getMana()), player);

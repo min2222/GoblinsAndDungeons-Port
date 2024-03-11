@@ -1,6 +1,5 @@
 package superlord.goblinsanddungeons.common.world.structures;
 import java.util.Map;
-import java.util.Random;
 
 import com.google.common.collect.ImmutableMap;
 
@@ -8,10 +7,11 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.StructureFeatureManager;
+import net.minecraft.world.level.StructureManager;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.Mirror;
@@ -26,8 +26,8 @@ import net.minecraft.world.level.levelgen.structure.TemplateStructurePiece;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceSerializationContext;
 import net.minecraft.world.level.levelgen.structure.templatesystem.BlockIgnoreProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.ProtectedBlockProcessor;
-import net.minecraft.world.level.levelgen.structure.templatesystem.StructureManager;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
 import superlord.goblinsanddungeons.GoblinsAndDungeons;
 import superlord.goblinsanddungeons.common.entity.Garch;
 import superlord.goblinsanddungeons.common.entity.Gob;
@@ -45,16 +45,16 @@ public class LargeGoblinCampStructurePiece {
 
 	static final BlockPos PIVOT = new BlockPos(9, 0, 9);
 
-	public static void addStructure(StructureManager p_162435_, BlockPos p_162436_, Rotation p_162437_, StructurePieceAccessor p_162438_, Random p_162439_) {
+	public static void addStructure(StructureTemplateManager p_162435_, BlockPos p_162436_, Rotation p_162437_, StructurePieceAccessor p_162438_, RandomSource p_162439_) {
 		p_162438_.addPiece(new Piece(p_162435_, largeGoblinCamp_Template, p_162436_, p_162437_, 0));
 	}
 
 	public static class Piece extends TemplateStructurePiece {
-		public Piece(StructureManager p_71244_, ResourceLocation p_71245_, BlockPos p_71246_, Rotation p_71247_, int p_71248_) {
+		public Piece(StructureTemplateManager p_71244_, ResourceLocation p_71245_, BlockPos p_71246_, Rotation p_71247_, int p_71248_) {
 			super(StructureInit.LARGE_GOBLIN_CAMP_PIECE, 0, p_71244_, p_71245_, p_71245_.toString(), makeSettings(p_71247_), makePosition(p_71245_, p_71246_, p_71248_));
 		}
 
-		public Piece(StructureManager p_162441_, CompoundTag p_162442_) {
+		public Piece(StructureTemplateManager p_162441_, CompoundTag p_162442_) {
 			super(StructureInit.LARGE_GOBLIN_CAMP_PIECE, p_162442_, p_162441_, (p_162451_) -> {
 				return makeSettings(Rotation.valueOf(p_162442_.getString("Rot")));
 			});
@@ -78,7 +78,7 @@ public class LargeGoblinCampStructurePiece {
 			p_162445_.putString("Rot", this.placeSettings.getRotation().name());
 		}
 
-		public void postProcess(WorldGenLevel worldIn, StructureFeatureManager p_230383_2_, ChunkGenerator p_230383_3_, Random p_230383_4_, BoundingBox p_230383_5_, ChunkPos p_230383_6_, BlockPos p_230383_7_) {
+		public void postProcess(WorldGenLevel worldIn, StructureManager p_230383_2_, ChunkGenerator p_230383_3_, RandomSource p_230383_4_, BoundingBox p_230383_5_, ChunkPos p_230383_6_, BlockPos p_230383_7_) {
 			//ResourceLocation var8 = new ResourceLocation(this.templateName);
 			//BlockPos blockPos = (BlockPos) structurePos.get(var8);
 
@@ -91,7 +91,7 @@ public class LargeGoblinCampStructurePiece {
 		}
 
         @Override
-        protected void handleDataMarker(String function, BlockPos pos, ServerLevelAccessor world, Random rand, BoundingBox sbb) {
+        protected void handleDataMarker(String function, BlockPos pos, ServerLevelAccessor world, RandomSource rand, BoundingBox sbb) {
             if ("chest".equals(function)) {
                 world.setBlock(pos, Blocks.AIR.defaultBlockState(), 2);
                 BlockEntity tileentity = world.getBlockEntity(pos.below());
